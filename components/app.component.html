@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Compras</title>
+</head>
+<body>
+    <h1>Lista de Compras</h1>
+    <app-add-item (addItem) = "onAddItem($event)"></app-add-item>
+   
+    <app-item-list
+        [items]="items"
+        (itemEdited)="editarItem($event)"
+        (itemDeleted)="excluirItem($event)">
+    </app-add-item>
+
+    <div>
+        <input [(ngModel)] = "newItem" placeholder="Digite um item a ser adicionado:">
+        <button (click)="onAddItem()">Adicionar</button>
+    </div>
+
+<div *ngFor="let item of items; let i = index">
+    <span [ngClass]="{'comprado': item.comprado}"></span>
+    <button (click)="excluir(i)">Excluir</button>
+    <button *ngIf="!item.comprado" (click)="editar(i)"">Editar</button>
+
+    <div *ngIf="editIndex === i">
+        <input [(ngModel)]="editName" placeholder="Novo nome"/>
+        <button (click)= "salvar(i)">Salvar</button>
+    </div>
+</div>
+
+    
+
+
+    
+</body>
+</html>
